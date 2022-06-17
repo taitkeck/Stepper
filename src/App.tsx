@@ -5,6 +5,7 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { form } from "./forms";
 // import { Typography } from '@mui/material/styles/createTypography';
 
 const steps = ['Name', 'Email', 'Favorite Color', 'Age', 'About Me'];
@@ -106,7 +107,14 @@ export default function HorizontalLinearStepper() {
             <Typography sx={{ mt: 2, mb: 1 }}>
               Step {activeStep + 1}
             </Typography>
-            {name(activeStep) && (
+            <fieldset name={form.fieldsets[activeStep].name}>
+              <legend>{form.fieldsets[activeStep].legend_text}</legend>
+              {form.fieldsets[activeStep].inputs.map((input, i) => (<div>
+                <label htmlFor={input.name}>{input.label_text}</label>
+                <input key={i} required={input.required} name={input.name} type={input.type} id={input.name} />
+              </div>))}
+            </fieldset>
+            {/* {name(activeStep) && (
               <Typography sx={{ mt: 2, mb: 1 }}>
                 <form>
                   <label htmlFor="fname">Enter your name</label><br /><br />
@@ -153,7 +161,7 @@ export default function HorizontalLinearStepper() {
                   <textarea name="abme" id="abme" placeholder="About Me"></textarea>
                 </form>
               </Typography>
-            )}
+            )} */}
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Button
               color="inherit"
