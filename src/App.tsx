@@ -6,26 +6,14 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { form } from "./forms";
+
 // import { Typography } from '@mui/material/styles/createTypography';
 
-const steps = ['Name', 'Email', 'Favorite Color', 'Age', 'About Me'];
 
 export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set<number>());
 
-  const email = (step: number) => {
-    return step === 1;
-  }
-  const name = (step: number) => {
-    return step === 0;
-  }
-  const age = (step: number) => {
-    return step === 3;
-  }
-  const aboutme = (step: number) => {
-    return step === 4;
-  }
   const isStepOptional = (step: number) => {
     return step === 2;
   };
@@ -71,7 +59,7 @@ export default function HorizontalLinearStepper() {
   return (
     <Box sx={{ width: '100%' }}>
       <Stepper activeStep={activeStep}>
-        {steps.map((label, index) => {
+        {form.fieldsets.map((fset, index) => {
           const stepProps: { completed?: boolean } = {};
           const labelProps: {
             optional?: React.ReactNode;
@@ -86,13 +74,13 @@ export default function HorizontalLinearStepper() {
             stepProps.completed = false;
           }
           return (
-            <Step key={label} {...stepProps}>
-              <StepLabel {...labelProps}>{label}</StepLabel>
+            <Step key={fset.name} {...stepProps}>
+              <StepLabel {...labelProps}>{fset.legend_text}</StepLabel>
             </Step>
           );
         })}
       </Stepper>
-      {activeStep === steps.length ? (
+      {activeStep === form.fieldsets.length ? (
         <React.Fragment>
           <Typography sx={{ mt: 2, mb: 1 }}>
             All steps completed - you&apos;re finished
@@ -114,54 +102,7 @@ export default function HorizontalLinearStepper() {
                 <input key={i} required={input.required} name={input.name} type={input.type} id={input.name} />
               </div>))}
             </fieldset>
-            {/* {name(activeStep) && (
-              <Typography sx={{ mt: 2, mb: 1 }}>
-                <form>
-                  <label htmlFor="fname">Enter your name</label><br /><br />
-                  <input type="text" name="fname" id="fname" placeholder="First Name"></input><br /><br />
-                  <input type="text" name="lname" id="lname" placeholder="Last Name"></input>
-                </form>
-              </Typography>
-            )}
-            {email(activeStep) && (
-              <Typography sx={{ mt: 2, mb: 1 }}>
-                <form>
-                  <label htmlFor="email">Enter your email</label><br />
-                  <input type="email" id="email" name="email" placeholder="Email"></input>
-                </form>
-              </Typography>
-            )}
-            {isStepOptional(activeStep) && (
-              <Typography sx={{ mt: 2, mb: 1 }}>
-                <form>
-                  <label htmlFor="color">Pick your favorite color</label><br />
-                  <select id="color" name="color">
-                    <option value="red">Red</option>
-                    <option value="orange">Orange</option>
-                    <option value="yellow">Yellow</option>
-                    <option value="green">Green</option>
-                    <option value="blue">Blue</option>
-                    <option value="purple">Purple</option>
-                  </select>
-                </form>
-              </Typography>
-            )}
-            {age(activeStep) && (
-              <Typography sx={{ mt: 2, mb: 1 }}>
-                <form>
-                  <label htmlFor="age">Enter your age</label><br />
-                  <input type="text" name="age" id="age" placeholder="Age"></input>
-                </form>
-              </Typography>
-            )}
-            {aboutme(activeStep) && (
-              <Typography sx={{ mt: 2, mb: 1 }}>
-                <form>
-                  <label htmlFor="abme">Tell about yourself</label><br />
-                  <textarea name="abme" id="abme" placeholder="About Me"></textarea>
-                </form>
-              </Typography>
-            )} */}
+          
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Button
               color="inherit"
@@ -178,7 +119,7 @@ export default function HorizontalLinearStepper() {
               </Button>
             )}
             <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+              {activeStep === form.fieldsets.length - 1 ? 'Finish' : 'Next'}
             </Button>
           </Box>
         </React.Fragment>
