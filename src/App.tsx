@@ -13,9 +13,9 @@ import { form } from "./forms";
 export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set<number>());
-
+  //'step ===' picks which step is optional 
   const isStepOptional = (step: number) => {
-    return step === 2;
+    return step === 4;
   };
 
   const isStepSkipped = (step: number) => {

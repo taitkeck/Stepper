@@ -1,3 +1,3 @@
 # React Stepper
 
-This project is to build a react stepper component for future projects.
+This project is generating new patient forms from json.
